@@ -5,8 +5,9 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const multer = require('multer');
 const fs = require('fs');
-const db = require('./db'); // mysql2/promise pool
+const db = require('./db');
 const PORT = process.env.PORT || 10000;
+const [rows] = await db.query('SELECT 1');
 
 const app = express();
 

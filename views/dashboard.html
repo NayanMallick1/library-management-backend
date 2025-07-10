@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookVerse - Dashboard</title>
+  <link href="/css/style.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --glass: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+    
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .book-card {
+      perspective: 1000px;
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .book-card:hover {
+      transform: scale(1.03);
+    }
+    
+    .book-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .book-card:hover .book-inner {
+      transform: rotateY(5deg);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 14px rgba(245, 158, 11, 0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+    
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- Navbar with user dropdown and links -->
+  <nav class="bg-gray-900/80 text-white p-4 shadow-lg backdrop-blur-md fixed w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold flex items-center">
+        <span class="text-yellow-300">Book</span><span class="text-white">Verse</span>
+        <span class="ml-2 text-xs bg-yellow-500 text-gray-900 px-2 py-1 rounded-full animate-pulse">Beta</span>
+      </a>
+      <div class="hidden md:flex space-x-6 items-center">
+        <a href="/" class="text-yellow-300 hover:text-yellow-200 transition-all duration-300 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+          </svg>
+          Home
+        </a>
+        <a href="/books" class="hover:text-yellow-300 transition-all duration-300 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+          </svg>
+          Books
+        </a>
+        <a href="/about" class="hover:text-yellow-300 transition-all duration-300 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
+          </svg>
+          About
+        </a>
+        <a href="/contact" class="hover:text-yellow-300 transition-all duration-300 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+          </svg>
+          Contact
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="relative group">
+          <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+            <span id="username-display" class="text-yellow-300 font-semibold hidden md:inline"></span>
+            <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-gray-900 font-bold">
+              <span id="user-initial">U</span>
+            </div>
+          </button>
+          <div class="absolute right-0 mt-2 w-48 bg-gray-800/95 rounded-md shadow-lg py-1 z-50 hidden group-hover:block backdrop-blur-md border border-gray-700">
+            <a href="/profile" class="block px-4 py-2 text-sm hover:bg-gray-700/50 transition-all">Your Profile</a>
+            <a href="/settings" class="block px-4 py-2 text-sm hover:bg-gray-700/50 transition-all">Settings</a>
+            <a href="/logout" class="block px-4 py-2 text-sm hover:bg-gray-700/50 transition-all">Sign out</a>
+          </div>
+        </div>
+        <div class="md:hidden">
+          <button class="text-white focus:outline-none" id="mobile-menu-button" aria-label="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <section class="container mx-auto py-8 px-4 pt-24">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-4xl font-bold">Welcome back, <span id="user-name" class="text-gradient">User</span>!</h1>
+      <div class="animate-bounce bg-yellow-500/20 p-2 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Stats Cards with Floating Animation -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="glass-card p-6 rounded-xl shadow-lg floating" style="animation-delay: 0s;">
+        <div class="flex items-center space-x-4">
+          <div class="p-3 bg-yellow-500/20 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">Books Borrowed</h3>
+            <p id="borrowed-count" class="text-4xl font-bold text-yellow-300">0</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="glass-card p-6 rounded-xl shadow-lg floating" style="animation-delay: 0.2s;">
+        <div class="flex items-center space-x-4">
+          <div class="p-3 bg-blue-500/20 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">Books Reserved</h3>
+            <p id="reserved-count" class="text-4xl font-bold text-blue-400">0</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="glass-card p-6 rounded-xl shadow-lg floating" style="animation-delay: 0.4s;">
+        <div class="flex items-center space-x-4">
+          <div class="p-3 bg-red-500/20 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">Due Soon</h3>
+            <p id="due-soon-count" class="text-4xl font-bold text-red-400">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recently Borrowed Books Table -->
+    <div class="glass-card p-6 rounded-xl shadow-lg mb-8 transition-all duration-500 hover:shadow-xl">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Recently Borrowed</h2>
+        <button class="btn-secondary px-4 py-2 rounded-full text-sm flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Refresh
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr class="border-b border-gray-700">
+              <th class="py-3 px-4 text-left font-medium">Title</th>
+              <th class="py-3 px-4 text-left font-medium">Author</th>
+              <th class="py-3 px-4 text-left font-medium">Borrowed Date</th>
+              <th class="py-3 px-4 text-left font-medium">Due Date</th>
+              <th class="py-3 px-4 text-left font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody id="recently-borrowed-body">
+            <tr>
+              <td class="py-3 px-4 text-center text-gray-400" colspan="5">
+                <div class="flex flex-col items-center py-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <p>No recent borrowed books</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Search and Add Books -->
+    <div class="glass-card p-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl">
+      <h2 class="text-2xl font-semibold mb-6">Discover New Books</h2>
+      <form id="search-form" class="mb-6 relative">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search books by title or author..."
+            class="w-full p-4 bg-gray-800/50 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
+            required
+          />
+          <button
+            type="submit"
+            class="absolute right-2 top-2 btn-primary px-6 py-2 rounded-xl flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </form>
+
+      <div id="search-results" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Floating Action Button -->
+  <div class="fixed bottom-8 right-8 z-40">
+    <button class="btn-primary w-14 h-14 rounded-full flex items-center justify-center shadow-lg pulse">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      </svg>
+    </button>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Fetch user data with loading animation
+    const userName = document.getElementById('user-name');
+    const usernameDisplay = document.getElementById('username-display');
+    const userInitial = document.getElementById('user-initial');
+    
+    // Add shimmer effect while loading
+    userName.classList.add('animate-pulse');
+    
+    fetch('/api/user-data', { credentials: 'include' })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Unauthorized');
+        }
+        return res.json();
+      })
+      .then(user => {
+        // Remove loading effect
+        userName.classList.remove('animate-pulse');
+        
+        // Set user data with animation
+        setTimeout(() => {
+          userName.textContent = user.name;
+          usernameDisplay.textContent = user.username;
+          userInitial.textContent = user.name.charAt(0).toUpperCase();
+          
+          // Add celebration effect
+          userName.classList.add('animate__animated', 'animate__rubberBand');
+          setTimeout(() => {
+            userName.classList.remove('animate__animated', 'animate__rubberBand');
+          }, 1000);
+        }, 300);
+
+        // Fetch and display user dashboard stats with animation
+        const borrowedCount = document.getElementById('borrowed-count');
+        const reservedCount = document.getElementById('reserved-count');
+        const dueSoonCount = document.getElementById('due-soon-count');
+        
+        fetch('/api/user-stats', { credentials: 'include' })
+          .then(res => res.json())
+          .then(stats => {
+            animateValue(borrowedCount, 0, stats.borrowedCount || 0, 1000);
+            animateValue(reservedCount, 0, stats.reservedCount || 0, 1000);
+            animateValue(dueSoonCount, 0, stats.dueSoonCount || 0, 1000);
+          })
+          .catch(() => {
+            console.warn('Failed to fetch user stats.');
+          });
+
+        // Fetch recently borrowed books
+        fetch('/api/recently-borrowed', { credentials: 'include' })
+          .then(res => res.json())
+          .then(books => {
+            const tbody = document.getElementById('recently-borrowed-body');
+            tbody.innerHTML = '';
+            
+            if (!books.length) {
+              tbody.innerHTML = `
+                <tr>
+                  <td colspan="5" class="py-3 px-4 text-center text-gray-400">
+                    <div class="flex flex-col items-center py-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      <p>No recent borrowed books</p>
+                    </div>
+                  </td>
+                </tr>
+              `;
+              return;
+            }
+            
+            books.forEach((book, index) => {
+              const row = document.createElement('tr');
+              row.className = `border-b border-gray-700 hover:bg-gray-800/50 transition-all ${index % 2 === 0 ? 'bg-gray-800/20' : ''}`;
+              
+              // Calculate days remaining
+              const dueDate = new Date(book.due_date);
+              const today = new Date();
+              const timeDiff = dueDate.getTime() - today.getTime();
+              const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+              
+              let statusBadge = '';
+              if (daysRemaining <= 0) {
+                statusBadge = '<span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-xs">Overdue</span>';
+              } else if (daysRemaining <= 3) {
+                statusBadge = `<span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-xs">${daysRemaining} days left</span>`;
+              } else {
+                statusBadge = `<span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">${daysRemaining} days left</span>`;
+              }
+              
+              row.innerHTML = `
+                <td class="py-3 px-4 font-medium">${book.title}</td>
+                <td class="py-3 px-4">${book.author}</td>
+                <td class="py-3 px-4">${book.borrowed_date}</td>
+                <td class="py-3 px-4">${book.due_date}</td>
+                <td class="py-3 px-4">${statusBadge}</td>
+              `;
+              
+              tbody.appendChild(row);
+            });
+          })
+          .catch(() => {
+            console.warn('Failed to fetch recently borrowed books.');
+          });
+      })
+      .catch(() => {
+        window.location.href = '/login';
+      });
+
+    // Search form logic with enhanced UI
+    document.getElementById('search-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const query = document.getElementById('search-input').value.trim();
+      if (!query) return;
+
+      // Show loading state
+      const searchButton = this.querySelector('button');
+      const originalButtonText = searchButton.innerHTML;
+      searchButton.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Searching...
+      `;
+      searchButton.disabled = true;
+
+      fetch(`/api/search?query=${encodeURIComponent(query)}`, { credentials: 'include' })
+        .then(res => res.json())
+        .then(books => {
+          // Restore button
+          searchButton.innerHTML = originalButtonText;
+          searchButton.disabled = false;
+
+          const resultsDiv = document.getElementById('search-results');
+          resultsDiv.innerHTML = '';
+
+          if (!books.length) {
+            resultsDiv.innerHTML = `
+              <div class="col-span-full text-center py-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">No books found</h3>
+                <p class="text-gray-400">Try a different search term</p>
+              </div>
+            `;
+            return;
+          }
+
+          books.forEach(book => {
+            const bookCard = document.createElement('div');
+            bookCard.classList.add('book-card', 'bg-gray-800/50', 'p-5', 'rounded-xl', 'border', 'border-gray-700');
+            bookCard.setAttribute('data-book-id', book.id);
+
+            bookCard.innerHTML = `
+              <div class="book-inner">
+                <div class="flex items-start space-x-4 mb-4">
+                  <div class="flex-shrink-0 bg-gray-700/50 p-3 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-lg mb-1">${book.title}</h3>
+                    <p class="text-gray-400 text-sm mb-2">by ${book.author}</p>
+                    <div class="flex items-center text-xs text-gray-500">
+                      <span class="mr-2">${book.genre}</span>
+                      <span>•</span>
+                      <span class="ml-2">${book.pages} pages</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-yellow-300 font-medium">${book.availability ? 'Available' : 'Checked Out'}</span>
+                  <button class="add-book-btn btn-secondary px-4 py-2 rounded-lg flex items-center transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Add Book
+                  </button>
+                </div>
+                <div class="add-message mt-2 text-sm text-green-400 hidden flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Successfully added to your collection
+                </div>
+              </div>
+            `;
+
+            resultsDiv.appendChild(bookCard);
+          });
+
+          // Add event listeners to all "Add Book" buttons
+          document.querySelectorAll('.add-book-btn').forEach(button => {
+            button.addEventListener('click', async function () {
+              const bookDiv = this.closest('.book-card');
+              const bookId = bookDiv.getAttribute('data-book-id');
+              const addMessage = bookDiv.querySelector('.add-message');
+
+              // Show loading state
+              this.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Adding...
+              `;
+              this.disabled = true;
+
+              try {
+                const response = await fetch('/api/borrow', {
+                  method: 'POST',
+                  credentials: 'include',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ bookId })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                  // Update UI with success animation
+                  this.classList.remove('btn-secondary');
+                  this.classList.add('bg-green-500', 'text-white');
+                  this.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Added
+                  `;
+                  addMessage.classList.remove('hidden');
+                  
+                  // Add to recently borrowed table
+                  addToRecentlyBorrowed(result.book);
+                  
+                  // Update borrowed count with animation
+                  const borrowedCountElem = document.getElementById('borrowed-count');
+                  let currentCount = parseInt(borrowedCountElem.textContent) || 0;
+                  animateValue(borrowedCountElem, currentCount, currentCount + 1, 500);
+                  
+                  // Confetti effect
+                  if (typeof confetti === 'function') {
+                    confetti({
+                      particleCount: 100,
+                      spread: 70,
+                      origin: { y: 0.6 }
+                    });
+                  }
+                } else {
+                  // Show error state
+                  this.innerHTML = 'Error';
+                  this.classList.remove('btn-secondary');
+                  this.classList.add('bg-red-500', 'text-white');
+                  
+                  setTimeout(() => {
+                    this.innerHTML = `
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      Try Again
+                    `;
+                    this.classList.remove('bg-red-500', 'text-white');
+                    this.classList.add('btn-secondary');
+                    this.disabled = false;
+                  }, 1500);
+                  
+                  alert('done: ' + (result.message || 'Unknown error'));
+                }
+              } catch (err) {
+                console.error(err);
+                alert('done adding book');
+              }
+            });
+          });
+        })
+        .catch(() => {
+          // Restore button on error
+          searchButton.innerHTML = originalButtonText;
+          searchButton.disabled = false;
+          
+          alert('Error searching books');
+        });
+    });
+    
+    // Function to animate numeric values
+    function animateValue(element, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        element.textContent = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+    
+    // Function to add book to recently borrowed table
+    function addToRecentlyBorrowed(book) {
+      const tbody = document.getElementById('recently-borrowed-body');
+      
+      // Remove the "no books" message if present
+      if (tbody.querySelector('td[colspan]')) {
+        tbody.innerHTML = '';
+      }
+      
+      // Calculate days remaining
+      const dueDate = new Date(book.due_date);
+      const today = new Date();
+      const timeDiff = dueDate.getTime() - today.getTime();
+      const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      
+      let statusBadge = '';
+      if (daysRemaining <= 0) {
+        statusBadge = '<span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-xs">Overdue</span>';
+      } else if (daysRemaining <= 3) {
+        statusBadge = `<span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-xs">${daysRemaining} days left</span>`;
+      } else {
+        statusBadge = `<span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">${daysRemaining} days left</span>`;
+      }
+      
+      // Create new row with animation
+      const row = document.createElement('tr');
+      row.className = 'border-b border-gray-700 bg-gray-800/50 animate__animated animate__fadeInDown';
+      row.innerHTML = `
+        <td class="py-3 px-4 font-medium">${book.title}</td>
+        <td class="py-3 px-4">${book.author}</td>
+        <td class="py-3 px-4">${new Date().toLocaleDateString()}</td>
+        <td class="py-3 px-4">${book.due_date}</td>
+        <td class="py-3 px-4">${statusBadge}</td>
+      `;
+      
+      // Insert at the top
+      if (tbody.firstChild) {
+        tbody.insertBefore(row, tbody.firstChild);
+      } else {
+        tbody.appendChild(row);
+      }
+      
+      // Remove animation class after it completes
+      setTimeout(() => {
+        row.classList.remove('animate__animated', 'animate__fadeInDown');
+      }, 1000);
+    }
+  });
+</script>
+
+<!-- Confetti library for celebrations -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+</body>
+</html>

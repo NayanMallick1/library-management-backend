@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookVerse - About</title>
+  <link href="/css/style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .glow-on-hover {
+      transition: all 0.3s ease;
+    }
+    .glow-on-hover:hover {
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Enhanced Navbar -->
+  <nav class="bg-gray-900 text-white p-4 shadow-md sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold">
+        <span class="gradient-text">Book</span><span class="text-white">Verse</span>
+      </a>
+      <div class="hidden md:flex space-x-8">
+        <a href="/" class="hover:text-purple-400 transition-all duration-300 relative group">
+          Home
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="/books" class="hover:text-purple-400 transition-all duration-300 relative group">
+          Books
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="/about" class="text-purple-400 transition-all duration-300 relative group">
+          About
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-400"></span>
+        </a>
+        <a href="/contact" class="hover:text-purple-400 transition-all duration-300 relative group">
+          Contact
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="/login" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg glow-on-hover">
+          Login
+        </a>
+        <div class="md:hidden">
+          <button class="text-white focus:outline-none" id="mobile-menu-button">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Page Content -->
+  <main class="container mx-auto py-12 px-4">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-5xl font-bold mb-6 gradient-text animate__animated animate__fadeIn">About <span class="text-gray-900">BookVerse</span></h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">
+        Where literature meets the decentralized future
+      </p>
+    </div>
+    
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-0 card-hover mb-16 animate__animated animate__fadeIn animate__delay-1s">
+      <div class="md:flex">
+        <div class="md:w-1/2 relative overflow-hidden">
+          <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Library">
+          <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-30"></div>
+        </div>
+        <div class="md:w-1/2 p-10">
+          <div class="flex items-center mb-6">
+            <div class="h-1 w-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mr-4"></div>
+            <h2 class="text-2xl font-semibold text-gray-800">Our Story</h2>
+          </div>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+Founded in 2025, BookVerse is rooted in the principles of decentralization and community ownership. While we're just beginning our journey, our foundation is solid — quality content, verified through community consensus.          </p>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+We're a collective of readers, writers, and technologists passionate about transforming how knowledge is shared. Our platform isn't just a library — it's a living ecosystem where every participant has a stake in the network's growth.          </p>
+          <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg border-l-4 border-purple-500">
+            <p class="text-purple-800 font-medium">"In the BookVerse, every reader becomes a curator, every author a valued contributor to our collective wisdom."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover animate__animated animate__fadeIn animate__delay-1s">
+        <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Our Mission</h3>
+        <p class="text-gray-600">To create a decentralized platform where knowledge flows freely, rewarded fairly through smart contracts and community governance.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover animate__animated animate__fadeIn animate__delay-1-5s">
+        <div class="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Our Vision</h3>
+        <p class="text-gray-600">A Web3-powered literary universe where content is owned by creators and valued by communities, not corporations.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover animate__animated animate__fadeIn animate__delay-2s">
+        <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Our Values</h3>
+        <ul class="text-gray-600 space-y-2">
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+            Decentralized ownership
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-pink-500 rounded-full mr-2"></span>
+            Transparent rewards
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-indigo-500 rounded-full mr-2"></span>
+            Community governance
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+            Permissionless innovation
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Web3 Features Section -->
+    <div class="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-3xl p-10 text-white mb-16 animate__animated animate__fadeIn">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-2">Driven by Community and Transparency</h2>
+        <p class="text-purple-200 mb-8 max-w-2xl">BookVerse leverages blockchain technology to create a fairer ecosystem for readers and writers alike.</p>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm border border-white border-opacity-20">
+            <div class="flex items-center mb-4">
+              <div class="bg-purple-500 bg-opacity-20 p-2 rounded-lg mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold">Proof-of-Reading</h3>
+            </div>
+            <p class="text-purple-100">Earn tokens by engaging with content, with rewards distributed based on verifiable reading activity.</p>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm border border-white border-opacity-20">
+            <div class="flex items-center mb-4">
+              <div class="bg-pink-500 bg-opacity-20 p-2 rounded-lg mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold">Creator Economy</h3>
+            </div>
+            <p class="text-purple-100">Authors receive direct compensation through smart contracts, with royalties automatically distributed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-900/80 backdrop-blur-md border-t border-gray-800 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <a href="/" class="text-2xl font-bold inline-block mb-4">
+            <span class="gradient-text">Book</span><span class="text-white">Verse</span>
+          </a>
+          <p class="text-gray-400 text-sm">
+            The decentralized reading platform for the digital era. Own your books, control your experience.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Explore</h3>
+          <ul class="space-y-2">
+            <li><a href="/books" class="text-gray-400 hover:text-yellow-300 transition-colors">Book Collections</a></li>
+            <li><a href="/marketplace" class="text-gray-400 hover:text-yellow-300 transition-colors">NFT Marketplace</a></li>
+            <li><a href="/authors" class="text-gray-400 hover:text-yellow-300 transition-colors">Featured Authors</a></li>
+            <li><a href="/genres" class="text-gray-400 hover:text-yellow-300 transition-colors">Browse Genres</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="/about" class="text-gray-400 hover:text-yellow-300 transition-colors">About Us</a></li>
+            <li><a href="/blog" class="text-gray-400 hover:text-yellow-300 transition-colors">Blog</a></li>
+            <li><a href="/careers" class="text-gray-400 hover:text-yellow-300 transition-colors">Careers</a></li>
+            <li><a href="/press" class="text-gray-400 hover:text-yellow-300 transition-colors">Press</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Legal</h3>
+          <ul class="space-y-2">
+            <li><a href="/privacy" class="text-gray-400 hover:text-yellow-300 transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-gray-400 hover:text-yellow-300 transition-colors">Terms of Service</a></li>
+            <li><a href="/copyright" class="text-gray-400 hover:text-yellow-300 transition-colors">Copyright</a></li>
+            <li><a href="/contact" class="text-gray-400 hover:text-yellow-300 transition-colors">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+        <div class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2025 BookVerse. All rights reserved.
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-yellow-300 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-yellow-300 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-yellow-300 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-yellow-300 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/script.js"></script>
+  <script>
+    // Simple animation trigger
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.animate__animated');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(entry.target.dataset.animation);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+
+</body>
+</html>

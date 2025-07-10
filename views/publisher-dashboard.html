@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookVerse - Publisher Dashboard</title>
+  <link href="/css/style.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Navbar -->
+  <nav class="bg-gray-900 text-white p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold">
+      <span class="text-yellow-300">Book</span>Verse
+    </a>
+    <div class="hidden md:flex space-x-6">
+      <a href="/" class="text-yellow-300">Home</a>
+<a href="/books" class="hover:text-yellow-300 transition">Books</a>
+<a href="/about" class="hover:text-yellow-300 transition">About</a>
+<a href="/contact" class="hover:text-yellow-300 transition">Contact</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span id="username-display" class="text-yellow-300 font-semibold hidden md:inline"></span>
+    </div>
+  </div>
+</nav>
+
+  <!-- Dashboard Content -->
+  <section class="container mx-auto py-8 px-4">
+    <h1 class="text-3xl font-bold mb-6">Welcome, <span id="publisher-name">Publisher</span>!</h1>
+
+    <!-- Upload New Book -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Add a New Book</h2>
+      <form id="add-book-form" enctype="multipart/form-data">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <input
+            type="text"
+            id="book-title"
+            placeholder="Book Title"
+            class="w-full p-3 border rounded"
+            required
+          />
+          <input
+            type="text"
+            id="book-author"
+            placeholder="Author"
+            class="w-full p-3 border rounded"
+            required
+          />
+          <input
+            type="text"
+            id="book-genre"
+            placeholder="Genre"
+            class="w-full p-3 border rounded"
+          />
+          <input
+            type="number"
+            id="book-year"
+            placeholder="Publication Year"
+            class="w-full p-3 border rounded"
+          />
+        </div>
+        <textarea
+          id="book-description"
+          placeholder="Book Description"
+          class="w-full p-3 border rounded mb-4"
+          rows="5"
+        ></textarea>
+        
+        <!-- PDF Upload Section -->
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-2">Upload PDF</label>
+          <div class="flex items-center">
+            <input
+              type="file"
+              id="book-pdf"
+              accept=".pdf"
+              class="hidden"
+              required
+            />
+            <input
+              type="text"
+              id="pdf-file-name"
+              placeholder="No file chosen"
+              class="w-full p-3 border rounded-l"
+              readonly
+            />
+            <button
+              type="button"
+              onclick="document.getElementById('book-pdf').click()"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 px-4 rounded-r"
+            >
+              Choose File
+            </button>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Only PDF files are accepted</p>
+        </div>
+        
+        <button
+          type="submit"
+          class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition"
+        >
+          Upload Book
+        </button>
+      </form>
+    </div>
+
+    <!-- List of Published Books -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4">Your Published Books</h2>
+      <div id="published-books" class="grid md:grid-cols-3 gap-4">
+        <p class="text-center text-gray-400">No books published yet.</p>
+      </div>
+    </div>
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Display selected PDF file name
+    document.getElementById('book-pdf').addEventListener('change', function(e) {
+      const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+      document.getElementById('pdf-file-name').value = fileName;
+    });
+
+    // Load publisher data and books
+    loadPublisherData();
+    loadPublishedBooks();
+
+    // Add new book logic
+    document.getElementById('add-book-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append('title', document.getElementById('book-title').value);
+      formData.append('author', document.getElementById('book-author').value);
+      formData.append('year', document.getElementById('book-year').value);
+      formData.append('description', document.getElementById('book-description').value);
+      
+      const pdfFile = document.getElementById('book-pdf').files[0];
+      if (pdfFile) {
+        formData.append('pdf', pdfFile);
+      }
+
+      try {
+        const response = await fetch('/api/add-book', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData,
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Clear the form
+          this.reset();
+          document.getElementById('pdf-file-name').value = 'No file chosen';
+          
+          // Reload the books list without refreshing the page
+          loadPublishedBooks();
+          
+          // Show success message
+          alert('Book added successfully!');
+        } else {
+          alert('Failed to add book: ' + result.message);
+        }
+      } catch (error) {
+        alert('Error adding book');
+        console.error('Error:', error);
+      }
+    });
+  });
+
+  // Function to load publisher data
+  async function loadPublisherData() {
+    try {
+      const response = await fetch('/api/user-data', { credentials: 'include' });
+      const publisher = await response.json();
+      
+      if (publisher) {
+        document.getElementById('publisher-name').textContent = publisher.name;
+        document.getElementById('username-display').textContent = publisher.username;
+      }
+    } catch (error) {
+      console.error('Error loading publisher data:', error);
+    }
+  }
+
+  // Function to load published books
+  async function loadPublishedBooks() {
+    try {
+      const response = await fetch('/api/published-books', { credentials: 'include' });
+      const books = await response.json();
+      
+      const booksContainer = document.getElementById('published-books');
+      booksContainer.innerHTML = '';
+      
+      if (!books.length) {
+        booksContainer.innerHTML = '<p class="text-center text-gray-400">No books published yet.</p>';
+        return;
+      }
+      
+      books.forEach(book => {
+        const bookCard = document.createElement('div');
+        bookCard.classList.add('bg-gray-100', 'p-4', 'rounded-lg', 'shadow');
+        bookCard.innerHTML = `
+          <h3 class="font-semibold text-lg">${book.title}</h3>
+          <p>by ${book.author}</p>
+          <p class="text-gray-600">${book.year}</p>
+          <p class="mt-2">${book.description}</p>
+          ${book.pdf_url ? `<a href="${book.pdf_url}" target="_blank" class="text-blue-500 hover:underline mt-2 inline-block">Download PDF</a>` : ''}
+        `;
+        booksContainer.appendChild(bookCard);
+      });
+    } catch (error) {
+      console.error('Error loading published books:', error);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookVerse - Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Particle positions */
+    .particle:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 60px; height: 60px; left: 20%; top: 50%; animation-delay: 1s; }
+    .particle:nth-child(3) { width: 40px; height: 40px; left: 30%; top: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { width: 100px; height: 100px; left: 40%; top: 70%; animation-delay: 3s; }
+    .particle:nth-child(5) { width: 50px; height: 50px; left: 60%; top: 40%; animation-delay: 1.5s; }
+    .particle:nth-child(6) { width: 70px; height: 70px; left: 80%; top: 60%; animation-delay: 2.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+    }
+
+    /* Glassmorphism navbar */
+    .navbar {
+      background: rgba(15, 15, 35, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main container with glassmorphism */
+    .register-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+      animation: slideInUp 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+      max-width: 500px;
+      width: 90%;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Form inputs */
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: rgba(255, 204, 0, 0.6);
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+    }
+
+    /* Select field styling */
+    .select-field {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .select-field:focus {
+      outline: none;
+      border-color: rgba(255, 204, 0, 0.6);
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+    }
+
+    /* Floating labels */
+    .input-label {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .input-field:focus + .input-label,
+    .input-field:not(:placeholder-shown) + .input-label,
+    .select-field:focus + .input-label,
+    .select-field:not([value=""]):valid + .input-label {
+      top: -10px;
+      left: 10px;
+      font-size: 12px;
+      background: rgba(15, 15, 35, 0.9);
+      padding: 0 5px;
+      color: #ffcc00;
+    }
+
+    /* Button styles */
+    .register-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      border: none;
+      border-radius: 12px;
+      color: #0f0f23;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .register-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 153, 0, 0.3);
+    }
+
+    /* Title styling */
+    .title {
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      background: linear-gradient(to right, #ffffff, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Link styling */
+    .text-link {
+      color: #ffcc00;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer styling */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .register-container {
+        padding: 1.5rem;
+      }
+      
+      .title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Navbar -->
+<nav class="bg-gray-900 text-white p-4 shadow-md fixed w-full top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold">
+      <span class="text-yellow-300">Book</span>Verse
+    </a>
+    <div class="hidden md:flex space-x-6">
+      <a href="/" class="text-yellow-300">Home</a>
+      <a href="/books" class="hover:text-yellow-300 transition">Books</a>
+      <a href="/about" class="hover:text-yellow-300 transition">About</a>
+      <a href="/contact" class="hover:text-yellow-300 transition">Contact</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="md:hidden">
+        <button class="text-white focus:outline-none" id="mobile-menu-button">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Register Form -->
+  <section class="flex items-center justify-center min-h-screen pt-20 pb-10 px-4">
+    <div class="register-container">
+      <h1 class="title">Create Account</h1>
+
+      <form action="/api/register" method="POST" class="space-y-6">
+        <div class="input-group">
+          <input
+            class="input-field"
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder=" "
+            required
+          >
+          <label class="input-label" for="name">Full Name</label>
+        </div>
+
+        <div class="input-group">
+          <input
+            class="input-field"
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder=" "
+            required
+          >
+          <label class="input-label" for="email">Email Address</label>
+        </div>
+
+        <div class="input-group">
+          <input
+            class="input-field"
+            type="text" 
+            id="username" 
+            name="username" 
+            placeholder=" "
+            required
+          >
+          <label class="input-label" for="username">Username</label>
+        </div>
+
+        <div class="input-group">
+          <input
+            class="input-field"
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder=" "
+            required
+          >
+          <label class="input-label" for="password">Password</label>
+        </div>
+
+        <div class="input-group">
+          <input
+            class="input-field"
+            type="password" 
+            id="confirm-password" 
+            name="confirmPassword" 
+            placeholder=" "
+            required
+          >
+          <label class="input-label" for="confirm-password">Confirm Password</label>
+        </div>
+
+        <div class="input-group">
+          <select
+            class="select-field"
+            id="role" 
+            name="role" 
+            required
+          >
+            <option value="" selected disabled>Select your role</option>
+            <option value="user">User</option>
+            <option value="publisher">Publisher</option>
+          </select>
+          <label class="input-label" for="role">Account Type</label>
+        </div>
+
+        <button type="submit" class="register-btn">
+          Create Account
+        </button>
+      </form>
+
+      <p class="mt-8 text-center text-gray-300">
+        Already have an account?
+        <a href="/login" class="text-link ml-2">Sign in here</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container mx-auto">
+      <p>&copy; 2024 BookVerse. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Existing: input focus/blur label color change
+    const inputs = document.querySelectorAll('.input-field, .select-field');
+    
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.querySelector('.input-label').style.color = '#ffcc00';
+      });
+      
+      input.addEventListener('blur', function() {
+        if (!this.value) {
+          this.parentElement.querySelector('.input-label').style.color = 'rgba(255, 255, 255, 0.6)';
+        }
+      });
+
+      // For select fields, check if a value is selected on load
+      if (input.tagName === 'SELECT' && input.value) {
+        input.parentElement.querySelector('.input-label').style.color = '#ffcc00';
+        input.parentElement.querySelector('.input-label').style.top = '-10px';
+        input.parentElement.querySelector('.input-label').style.left = '10px';
+        input.parentElement.querySelector('.input-label').style.fontSize = '12px';
+        input.parentElement.querySelector('.input-label').style.background = 'rgba(15, 15, 35, 0.9)';
+        input.parentElement.querySelector('.input-label').style.padding = '0 5px';
+      }
+    });
+
+    // New: show error message based on URL query param 'error'
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get('error');
+
+    if (error) {
+      let message = '';
+      switch(error) {
+        case 'password_mismatch':
+          message = 'Passwords do not match.';
+          break;
+        case 'user_exists':
+          message = 'Username or email already exists.';
+          break;
+        case 'server_error':
+          message = 'Server error, please try again later.';
+          break;
+        case 'role_required':
+          message = 'Please select an account type.';
+          break;
+      }
+      if (message) {
+        const container = document.querySelector('.register-container');
+
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = message;
+        errorDiv.style.backgroundColor = 'rgba(255, 51, 51, 0.8)';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '1rem';
+        errorDiv.style.marginBottom = '1.5rem';
+        errorDiv.style.borderRadius = '12px';
+        errorDiv.style.fontWeight = '600';
+        errorDiv.style.textAlign = 'center';
+        errorDiv.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.5)';
+
+        container.prepend(errorDiv);
+      }
+    }
+  });
+</script>
+</body>
+</html>

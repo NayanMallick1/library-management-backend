@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookVerse - Login</title>
+  <link href="/css/style.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .login-container {
+      background-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.7),
+          rgba(0, 0, 0, 0.7)
+        ),
+        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <nav class="bg-gray-900 text-white p-4 shadow-md relative">
+    <div class="container mx-auto flex items-center justify-between relative">
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold z-10">
+        <span class="text-yellow-300">Book</span>Verse
+      </a>
+
+      <!-- Centered Nav Links -->
+      <div
+        class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-6"
+        id="nav-links"
+      >
+        <a href="/" class="text-yellow-300">Home</a>
+        <a href="/books" class="hover:text-yellow-300 transition">Books</a>
+        <a href="/about" class="hover:text-yellow-300 transition">About</a>
+        <a href="/contact" class="hover:text-yellow-300 transition">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center space-x-4 md:hidden z-10">
+        <button
+          aria-label="Toggle menu"
+          class="text-white focus:outline-none"
+          id="mobile-menu-button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="hidden bg-gray-800 text-white md:hidden"
+      id="mobile-menu"
+      role="menu"
+      aria-label="Mobile Navigation"
+    >
+      <a
+        href="/"
+        class="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition"
+        role="menuitem"
+        >Home</a
+      >
+      <a
+        href="/books"
+        class="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition"
+        role="menuitem"
+        >Books</a
+      >
+      <a
+        href="/about"
+        class="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition"
+        role="menuitem"
+        >About</a
+      >
+      <a
+        href="/contact"
+        class="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition"
+        role="menuitem"
+        >Contact</a
+      >
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <section class="flex items-center justify-center min-h-screen p-4">
+    <div
+      class="login-container w-full max-w-md p-8 rounded-lg shadow-2xl text-white"
+    >
+      <h1 class="text-3xl font-bold mb-6 text-center">Login to BookVerse</h1>
+
+      <form id="login-form" novalidate>
+        <div class="mb-4">
+          <label class="block text-gray-200 mb-2" for="username">Username</label>
+          <input
+            class="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-yellow-400"
+            type="text"
+            name="username"
+            id="username"
+            required
+            autocomplete="username"
+            aria-describedby="username-error"
+          />
+          <p
+            class="text-red-400 mt-1 text-sm hidden"
+            id="username-error"
+            role="alert"
+          ></p>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-200 mb-2" for="password">Password</label>
+          <input
+            class="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-yellow-400"
+            type="password"
+            name="password"
+            id="password"
+            required
+            autocomplete="current-password"
+            aria-describedby="password-error"
+          />
+          <p
+            class="text-red-400 mt-1 text-sm hidden"
+            id="password-error"
+            role="alert"
+          ></p>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-gray-200 mb-2" for="role">Login as</label>
+          <select
+            class="w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-yellow-400"
+            name="role"
+            id="role"
+            required
+          >
+            <option value="" disabled selected>Select your role</option>
+            <option value="user">User</option>
+            <option value="publisher">Publisher</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition"
+        >
+          Login
+        </button>
+      </form>
+
+      <p class="mt-6 text-center text-gray-300">
+        Don't have an account?
+        <a href="/register" class="text-yellow-400 hover:underline"
+          >Register here</a
+        >
+      </p>
+
+      <p
+        id="form-error"
+        class="mt-4 text-center text-red-500 font-semibold hidden"
+        role="alert"
+      ></p>
+    </div>
+  </section>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      const expanded =
+        mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+      mobileMenuButton.setAttribute('aria-expanded', !expanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Handle login form submission with fetch API
+    const form = document.getElementById('login-form');
+    const formError = document.getElementById('form-error');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const roleInput = document.getElementById('role');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Clear previous errors
+      formError.textContent = '';
+      formError.classList.add('hidden');
+
+      // Basic validation
+      if (!usernameInput.value.trim() || !passwordInput.value.trim() || !roleInput.value) {
+        formError.textContent = 'Please fill in all fields.';
+        formError.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          credentials: 'include', // Important for cookies/session
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: usernameInput.value.trim(),
+            password: passwordInput.value.trim(),
+            role: roleInput.value
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Redirect based on role
+          if (roleInput.value === 'publisher') {
+            window.location.href = '/publisher-dashboard';
+          } else {
+            window.location.href = '/dashboard';
+          }
+        } else {
+          formError.textContent = data.message || 'Login failed.';
+          formError.classList.remove('hidden');
+        }
+      } catch (error) {
+        formError.textContent = 'Network error. Please try again.';
+        formError.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

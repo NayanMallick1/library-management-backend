@@ -6,17 +6,17 @@ const session = require('express-session');
 const multer = require('multer');
 const fs = require('fs');
 const db = require('./db'); // mysql2/promise pool
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 const app = express();
 
-// Test DB connection on startup
+// ✅ Recommended version with destructuring
 (async () => {
   try {
-    await db.query('SELECT 1');
-    console.log('✅ Database connected');
-  } catch (err) {
-    console.error('❌ Database connection error:', err);
+    const [rows] = await db.query('SELECT 1'); // Destructure rows
+    console.log('✅ Database connected:', rows);
+  } catch (error) {
+    console.error('❌ Database connection error:', error);
     process.exit(1);
   }
 })();

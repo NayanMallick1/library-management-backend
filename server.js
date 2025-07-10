@@ -22,7 +22,7 @@ const app = express();
 })();
 
 // Configure file upload storage
-const uploadDir = path.join('/Users/nayanmallick/Desktop/MyJava/my-app', 'uploads');
+const uploadDir = path.join(__dirname, 'uploads'); // ✅ this works on all environments
 
 // Create uploads directory if it doesn't exist
 if (!fs.existsSync(uploadDir)) {

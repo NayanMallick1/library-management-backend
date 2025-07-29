@@ -40,15 +40,25 @@ Connection handled via mysql2/promise for async support
 
 
 📦 Dependencies
+
 express
+
 mysql2
+
 bcrypt
+
 express-session
+
 multer
+
 cors
+
 dotenv
+
 fs (Node.js native)
+
 path (Node.js native)
+
 
 
 

@@ -46,6 +46,7 @@ Connection handled via mysql2/promise for async support
 <img width="929" height="155" alt="Screenshot 2025-07-29 at 20 58 43" src="https://github.com/user-attachments/assets/a20b4726-1f0d-4b5e-970f-839a028c0fd4" />
 
 **USERS TABLES**
+
 <img width="760" height="96" alt="image" src="https://github.com/user-attachments/assets/e0ddbc3e-85ef-4e1a-acfd-d6f21eefeefb" />
 
 **BORROWED BOOKS**

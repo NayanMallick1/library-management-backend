@@ -34,15 +34,8 @@ Connection handled via mysql2/promise for async support
 
 📂 Folder Structure
 /backend
-├── db.js                  # MySQL DB connection using mysql2
-├── server.js              # Main Express app
-├── routes/
-│   ├── auth.js            # Login & signup APIs
-│   ├── user.js            # User-specific APIs
-│   └── publisher.js       # Publisher-specific APIs
-├── uploads/               # Uploaded book PDFs (stored locally)
-├── .env                   # DB credentials, session secrets (not committed)
-└── README.md              # Project description
+<img width="648" height="248" alt="image" src="https://github.com/user-attachments/assets/f4384cf8-b557-469e-bb0f-018bb4825091" />
+
 
 📦 Dependencies
 express

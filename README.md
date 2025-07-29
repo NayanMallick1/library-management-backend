@@ -34,6 +34,8 @@ Connection handled via mysql2/promise for async support
 
 📂 Folder Structure
 /backend
+
+
 <img width="648" height="248" alt="image" src="https://github.com/user-attachments/assets/f4384cf8-b557-469e-bb0f-018bb4825091" />
 
 
@@ -47,6 +49,8 @@ cors
 dotenv
 fs (Node.js native)
 path (Node.js native)
+
+
 
 
 
